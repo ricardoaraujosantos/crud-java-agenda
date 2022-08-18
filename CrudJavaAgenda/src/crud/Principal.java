@@ -43,7 +43,16 @@ public class Principal {
 
 			case 2:
 				//Read 
-
+				System.out.println("- LISTA TODOS CONTATOS -\n");
+				
+				 for (Contato contatoList : dao.obterContatos()) {  
+					  
+					  	System.out.println("ID: " + contatoList.getId());
+			           	System.out.println("NOME: " + contatoList.getNome());
+			            System.out.println("TELEFONE: " + contatoList.gettelefone());
+			            System.out.println("----------------------------------- ");
+			        }
+				 System.out.println("\n");
 				
 				break;
 
