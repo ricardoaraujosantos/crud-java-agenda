@@ -90,14 +90,21 @@ public class Principal {
 				id = entrada.nextInt();
 				
 				System.out.println("Deseja realmente excluir esse contato? \n");
-				//criar metodo mostrar o contato
-				System.out.println("1 - SIM \n");
-				System.out.println("2 - NAO \n");
+				
+				contato = dao.obterContatoPorId(id);
+				System.out.println("Id: " + contato.getId());
+				System.out.println("Nome: " + contato.getNome());
+				
+				System.out.println("CONFIRMAR DIGITE 1 \n");
+				
+				System.out.println("1 - SIM");
+				System.out.println("2 - NÃO");
+				System.out.println("----------------------------------\n");
 				opcao = entrada.nextInt();
 				
 				if(opcao == 1) {
 					dao.delete(id);
-					System.out.println("Contato Cancelado com sucesso \n");
+					System.out.println("Contato deletado com sucesso \n");
 				}else {
 					System.out.println("Operação delete cancelada \n");
 				}
@@ -105,7 +112,14 @@ public class Principal {
 
 			case 5:
 				// Search By Id
-
+				System.out.println("Digite o Id do contato que deseja consultar");
+				id = entrada.nextInt();
+				contato = dao.obterContatoPorId(id);
+				
+				System.out.println("Id: " + contato.getId());
+				System.out.println("Nome: " + contato.getNome());
+				System.out.println("Telefone: " + contato.getTelefone());
+				
 				break;
 
 			case 6:

@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,8 +118,7 @@ public class ContatoDao {
 
 	public void upDate(Contato contato) {
 
-		String sql = "UPDATE contato SET nome = ?, telefone = ?" 
-				+ " WHERE id = ?";
+		String sql = "UPDATE contato SET nome = ?, telefone = ?" + " WHERE id = ?";
 
 		try {
 			conn = Conexao.createConnectionToMySQL();
@@ -150,7 +150,7 @@ public class ContatoDao {
 	}
 
 	public void delete(int id) {
-		
+
 		String sql = "DELETE FROM contato WHERE id = ?";
 
 		try {
@@ -179,4 +179,42 @@ public class ContatoDao {
 		}
 	}
 
+	public Contato obterContatoPorId(int id) {
+		
+		Contato contato = new Contato();
+		String sql = "SELECT * FROM contato WHERE id = ?";
+
+		ResultSet rset = null;
+
+		try {
+			conn = Conexao.createConnectionToMySQL();
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, id);
+			rset = pstm.executeQuery();
+			rset.next();
+
+			contato.setId(rset.getInt("id"));
+			contato.setNome(rset.getString("nome"));
+			contato.setTelefone(rset.getString("telefone"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rset != null) {
+					rset.close();
+				}
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return contato;
+	}
 }
