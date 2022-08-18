@@ -84,7 +84,23 @@ public class Principal {
 
 			case 4:
 				// Delete
-
+				
+				System.out.println("DELETAR");
+				System.out.println("Digite o id do contato que deseja deletar");
+				id = entrada.nextInt();
+				
+				System.out.println("Deseja realmente excluir esse contato? \n");
+				//criar metodo mostrar o contato
+				System.out.println("1 - SIM \n");
+				System.out.println("2 - NAO \n");
+				opcao = entrada.nextInt();
+				
+				if(opcao == 1) {
+					dao.delete(id);
+					System.out.println("Contato Cancelado com sucesso \n");
+				}else {
+					System.out.println("Operação delete cancelada \n");
+				}
 				break;
 
 			case 5:
