@@ -26,7 +26,7 @@ public class Contato {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String gettelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 	public void setTelefone(String telefone) {

@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +8,8 @@ import java.util.List;
 import modelo.Conexao;
 import modelo.Contato;
 
-
 public class ContatoDao {
-	
+
 	Connection conn = null;
 	PreparedStatement pstm = null;
 
@@ -31,11 +29,11 @@ public class ContatoDao {
 			// Adicionar o valor do segundo parâmetro da sql
 			pstm.setString(2, contato.getNome());
 			// Adicionar o valor do terceiro parâmetro da sql
-			pstm.setString(3, contato.gettelefone());
-		
+			pstm.setString(3, contato.getTelefone());
+
 			// Executa a sql para inserção dos dados
 			pstm.execute();
-			
+
 			System.out.println("CADASTRO REALIZADO COM SUCESSO! \n");
 
 		} catch (Exception e) {
@@ -58,7 +56,7 @@ public class ContatoDao {
 			}
 		}
 	}
-	
+
 	public List<Contato> obterContatos() {
 
 		String sql = "SELECT * FROM contato";
@@ -117,4 +115,37 @@ public class ContatoDao {
 		return contatosList;
 	}
 
+	public void upDate(Contato contato) {
+
+		String sql = "UPDATE contato SET nome = ?, telefone = ?" 
+				+ " WHERE id = ?";
+
+		try {
+			conn = Conexao.createConnectionToMySQL();
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, contato.getNome());
+			pstm.setString(2, contato.getTelefone());
+			pstm.setInt(3, contato.getId());
+			pstm.execute();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			// Fecha as conexões
+			try {
+
+				if (pstm != null) {
+					pstm.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

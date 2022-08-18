@@ -1,4 +1,5 @@
 package crud;
+
 import java.util.Scanner;
 import dao.ContatoDao;
 import modelo.Contato;
@@ -6,11 +7,12 @@ import modelo.Contato;
 public class Principal {
 
 	public static void main(String[] args) {
-		
+
 		int opcao = 0;
+		int id = 0;
 		String nome = "";
 		String telefone = "";
-		Scanner entrada =  new Scanner(System.in);
+		Scanner entrada = new Scanner(System.in);
 		ContatoDao dao = new ContatoDao();
 
 		do {
@@ -35,30 +37,49 @@ public class Principal {
 				nome = entrada.next();
 				System.out.println("Digite o telefone com DDD");
 				telefone = entrada.next();
-				
+
 				Contato contato = new Contato(nome, telefone);
 				dao.save(contato);
-				
+
 				break;
 
 			case 2:
-				//Read 
+				// Read
 				System.out.println("- LISTA TODOS CONTATOS -\n");
-				
-				 for (Contato contatoList : dao.obterContatos()) {  
-					  
-					  	System.out.println("ID: " + contatoList.getId());
-			           	System.out.println("NOME: " + contatoList.getNome());
-			            System.out.println("TELEFONE: " + contatoList.gettelefone());
-			            System.out.println("----------------------------------- ");
-			        }
-				 System.out.println("\n");
-				
+
+				for (Contato contatoList : dao.obterContatos()) {
+
+					System.out.println("ID: " + contatoList.getId());
+					System.out.println("NOME: " + contatoList.getNome());
+					System.out.println("TELEFONE: " + contatoList.getTelefone());
+					System.out.println("----------------------------------- ");
+				}
+				System.out.println("\n");
+
 				break;
 
 			case 3:
-				//Update 
-	
+				// Update
+
+				Contato upDateContato = new Contato();
+
+				System.out.println("ATUALIZAR");
+				System.out.println("Digite o id do contato que deseja atualizar");
+				id = entrada.nextInt();
+				upDateContato.setId(id);
+
+				System.out.println("Digite um novo nome");
+				nome = entrada.next();
+				upDateContato.setNome(nome);
+				System.out.println("Nome atualizado!");
+
+				System.out.println("Digite um novo telefone");
+				telefone = entrada.next();
+				upDateContato.setTelefone(telefone);
+				System.out.println("Telefone atualizado!");
+
+				dao.upDate(upDateContato);
+
 				break;
 
 			case 4:
@@ -68,8 +89,6 @@ public class Principal {
 
 			case 5:
 				// Search By Id
-
-				
 
 				break;
 
